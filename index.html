@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <title>My Valentine Basket 💘</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
@@ -17,6 +16,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .container {
@@ -27,17 +27,11 @@ body {
   width: 90%;
   text-align: center;
   box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+  z-index: 2;
 }
 
-h1 {
-  color: #ff4f9a;
-  margin-bottom: 10px;
-}
-
-.subtitle {
-  color: #666;
-  margin-bottom: 30px;
-}
+h1 { color: #ff4f9a; }
+.subtitle { color: #666; margin-bottom: 25px; }
 
 .grid {
   display: grid;
@@ -67,59 +61,80 @@ h1 {
 }
 
 .card h3 {
-  margin: 10px 0 0;
+  margin-top: 10px;
   color: #ff4f9a;
 }
 
 /* Animations */
-@keyframes spray {
-  0% { box-shadow: 0 0 0 rgba(255,105,180,0); }
-  50% { box-shadow: 0 0 40px rgba(255,105,180,0.9); }
-  100% { box-shadow: 0 0 0 rgba(255,105,180,0); }
-}
-
-@keyframes drink {
-  0% { transform: rotate(0); }
-  50% { transform: rotate(-15deg); }
-  100% { transform: rotate(0); }
-}
-
-@keyframes smell {
-  0% { filter: brightness(1); }
-  50% { filter: brightness(1.4); }
-  100% { filter: brightness(1); }
-}
-
-@keyframes squeeze {
-  0% { transform: scale(1); }
-  50% { transform: scale(0.9); }
-  100% { transform: scale(1); }
-}
+@keyframes spray { 50% { box-shadow: 0 0 40px hotpink; } }
+@keyframes drink { 50% { transform: rotate(-15deg); } }
+@keyframes smell { 50% { filter: brightness(1.4); } }
+@keyframes squeeze { 50% { transform: scale(0.9); } }
 
 .spray { animation: spray 0.8s; }
 .drink { animation: drink 0.6s; }
 .smell { animation: smell 0.8s; }
 .squeeze { animation: squeeze 0.4s; }
 
-.counter {
-  margin-top: 25px;
-  font-size: 1.1rem;
-  color: #ff4f9a;
-}
+.counter { margin-top: 20px; color: #ff4f9a; }
 
 #secret {
   display: none;
   margin-top: 25px;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   color: #ff2f88;
+}
+
+/* Floating hearts */
+.heart {
+  position: fixed;
+  bottom: 0;
+  font-size: 24px;
+  animation: floatUp 3s linear forwards;
+}
+
+@keyframes floatUp {
+  to {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+}
+
+/* Confetti */
+.confetti {
+  position: fixed;
+  width: 10px;
+  height: 10px;
+  background: pink;
+  top: -10px;
+  animation: fall 3s linear forwards;
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(110vh) rotate(360deg);
+  }
 }
 </style>
 </head>
 
 <body>
+
+<!-- Background music -->
+<audio id="bgMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c3b1d2f10.mp3">
+</audio>
+
+<!-- Sound effects -->
+<audio id="spraySound" src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_2cdb9c1e28.mp3"></audio>
+<audio id="drinkSound" src="https://cdn.pixabay.com/download/audio/2022/02/23/audio_4f4c41c0c4.mp3"></audio>
+<audio id="popSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0c2b67c66f.mp3"></audio>
+
 <div class="container">
   <h1>My Valentine Basket 💝</h1>
-  <div class="subtitle">Tap each item and interact with it!</div>
+  <div class="subtitle">Click everything 💕</div>
+
+  <button onclick="playMusic()">Play Music 🎵</button>
 
   <div class="grid">
     <div class="card" onclick="spray(this)">
@@ -144,56 +159,18 @@ h1 {
   </div>
 
   <div class="counter" id="counter">Items used: 0 / 4</div>
-  <div id="secret">💌 You unlocked the secret message: I love you more than anything 💕</div>
+  <div id="secret">🎉 I love you more than anything in this universe 💖</div>
 </div>
 
 <script>
-let used = {
-  spray: false,
-  drink: false,
-  smell: false,
-  squeeze: false
-};
+let used = { spray:false, drink:false, smell:false, squeeze:false };
 
-function updateCounter() {
-  let count = Object.values(used).filter(v => v).length;
-  document.getElementById("counter").innerText = `Items used: ${count} / 4`;
-  if (count === 4) {
-    document.getElementById("secret").style.display = "block";
-  }
+function playMusic() {
+  document.getElementById("bgMusic").play();
 }
 
-function spray(card) {
-  card.classList.add("spray");
-  alert("Pshhh 💕 You smell amazing!");
-  used.spray = true;
-  updateCounter();
-  setTimeout(() => card.classList.remove("spray"), 800);
-}
-
-function drink(card) {
-  card.classList.add("drink");
-  alert("Sip sip 🥤 Stay hydrated cutie");
-  used.drink = true;
-  updateCounter();
-  setTimeout(() => card.classList.remove("drink"), 600);
-}
-
-function smell(card) {
-  card.classList.add("smell");
-  alert("They smell just like you 🌹");
-  used.smell = true;
-  updateCounter();
-  setTimeout(() => card.classList.remove("smell"), 800);
-}
-
-function squeeze(card) {
-  card.classList.add("squeeze");
-  alert("Squeeeze 🧸 I'm hugging you back");
-  used.squeeze = true;
-  updateCounter();
-  setTimeout(() => card.classList.remove("squeeze"), 400);
-}
-</script>
-</body>
-</html>
+function hearts() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerText = "💖";
+  heart.st

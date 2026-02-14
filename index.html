@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For My Valentine 💕</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom right, #ffd6e8, #ffc0cb);
+  text-align: center;
+}
+
+h1 {
+  margin-top: 30px;
+  color: #b30059;
+}
+
+.basket {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 50px;
+}
+
+.item {
+  width: 150px;
+  cursor: pointer;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.item:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 15px pink);
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  display: none;
+  max-width: 300px;
+}
+
+button {
+  margin-top: 15px;
+  padding: 8px 15px;
+  border: none;
+  background: #ff69b4;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<h1>My Valentine Basket 💕</h1>
+<p>Click your favorites 🥰</p>
+
+<div class="basket">
+  <img src="perfume.png" class="item" onclick="showPopup('spray')">
+  <img src="monster1.png" class="item" onclick="showPopup('monster1')">
+  <img src="monster2.png" class="item" onclick="showPopup('monster2')">
+  <img src="roses.png" class="item" onclick="showPopup('roses')">
+  <img src="twizzlers.png" class="item" onclick="showPopup('twizzlers')">
+  <img src="bear.png" class="item" onclick="showPopup('bear')">
+</div>
+
+<div class="popup" id="popup">
+  <div id="popupText"></div>
+  <button onclick="closePopup()">Close</button>
+</div>
+
+<script>
+function showPopup(type) {
+  const popup = document.getElementById("popup");
+  const text = document.getElementById("popupText");
+
+  if(type === "spray") {
+    text.innerHTML = "You sprayed your Billie perfume 💕<br><br>You smell amazing.";
+  }
+  if(type === "monster1") {
+    text.innerHTML = "Ultra Guava opened 🥤<br><br>Energy for my favorite girl!";
+  }
+  if(type === "monster2") {
+    text.innerHTML = "Mango Loco opened 🥭<br><br>Stay energized, beautiful.";
+  }
+  if(type === "roses") {
+    text.innerHTML = "Stop and smell the roses 🌹<br><br>I love you so much.";
+  }
+  if(type === "twizzlers") {
+    text.innerHTML = "Nom nom 🍒<br><br>Because you're the sweetest.";
+  }
+  if(type === "bear") {
+    text.innerHTML = "Squeeze the bear 🧸<br><br>Pretend this is me hugging you tight.";
+  }
+
+  popup.style.display = "block";
+}
+
+function closePopup() {
+  document.getElementById("popup").style.display = "none";
+}
+</script>
+
+</body>
+</html>
